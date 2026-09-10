@@ -136,8 +136,8 @@
 
         document.getElementById("formCadastro").addEventListener("submit", (e) => {
             e.preventDefault();
-            const nome = document.getElementById("Data").value.trim();
-            const idade = document.getElementById("Horario").value;
+            const Data = document.getElementById("Data").value.trim();
+            const Horario = document.getElementById("Horario").value;
             if (!Data || !Horario) return;
             entrada.push({ Data , Horario });
             salvar();
