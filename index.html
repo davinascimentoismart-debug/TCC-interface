@@ -113,22 +113,22 @@
 
     <script>
        // ===== Cadastro com localStorage + exportação CSV =====
-        const CHAVE = "alunos";
-        let alunos = JSON.parse(localStorage.getItem(CHAVE) || "[]");
+        const CHAVE = "entrada";
+        let entrada = JSON.parse(localStorage.getItem(CHAVE) || "[]");
 
         function salvar() {
-            localStorage.setItem(CHAVE, JSON.stringify(alunos));
+            localStorage.setItem(CHAVE, JSON.stringify(entrada));
         }
 
         function renderizar() {
             const div = document.getElementById("tabela");
-            if (alunos.length === 0) {
+            if (entrada.length === 0) {
                 div.innerHTML = "<p>Nenhum registro salvo ainda.</p>";
                 return;
             }
-            let html = "<table><thead><tr><th>#</th><th>Nome</th><th>Idade</th></tr></thead><tbody>";
-            alunos.forEach((a, i) => {
-                html += `<tr><td>${i + 1}</td><td>${a.nome}</td><td>${a.idade}</td></tr>`;
+            let html = "<table><thead><tr><th>#</th><th>Data</th><th>Horario</th></tr></thead><tbody>";
+            entrada.forEach((a, i) => {
+                html += `<tr><td>${i + 1}</td><td>${a.Data}</td><td>${a.Horario}</td></tr>`;
             });
             html += "</tbody></table>";
             div.innerHTML = html;
@@ -136,10 +136,10 @@
 
         document.getElementById("formCadastro").addEventListener("submit", (e) => {
             e.preventDefault();
-            const nome = document.getElementById("nome").value.trim();
-            const idade = document.getElementById("idade").value;
-            if (!nome || !idade) return;
-            alunos.push({ nome, idade });
+            const nome = document.getElementById("Data").value.trim();
+            const idade = document.getElementById("Horario").value;
+            if (!Data || !Horario) return;
+            entrada.push({ Data , Horario });
             salvar();
             renderizar();
             e.target.reset();
@@ -149,19 +149,19 @@
 
         document.getElementById("btnBaixar").addEventListener("click", () => {
             const BOM = "\uFEFF"; // faz o Excel reconhecer UTF-8 (acentos)
-            const linhas = ["nome;idade"];
-            alunos.forEach((a) => linhas.push(`${a.nome};${a.idade}`));
+            const linhas = ["Data;Horario"];
+            alunos.forEach((a) => linhas.push(`${a.Data};${a.Horario}`));
             const blob = new Blob([BOM + linhas.join("\n")], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "alunos.csv";
+            link.download = "entrada.csv";
             link.click();
             URL.revokeObjectURL(link.href);
         });
 
         document.getElementById("btnLimpar").addEventListener("click", () => {
             if (confirm("Apagar todos os registros?")) {
-                alunos = [];
+                entrada = [];
                 salvar();
                 renderizar();
             }
