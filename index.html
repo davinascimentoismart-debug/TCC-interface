@@ -173,8 +173,13 @@
 
         renderizar();
     </script>
+    
+  <div class="card">
+        <span class="badge">Cadastro</span>
+        <h2>Historico de entrada</h2>
+        
 
-      <form id="formCadastro">
+        <form id="formCadastro">
             <input type="text" id="Data" placeholder="Data" required>
             <input type="text" id="Horario" placeholder="Horario" required>
             <button type="submit">Salvar</button>
@@ -187,7 +192,6 @@
         <div id="tabela"></div>
     </div>
 
-    <script>
        // ===== Cadastro com localStorage + exportação CSV =====
         const CHAVE = "entrada";
         let entrada = JSON.parse(localStorage.getItem(CHAVE) || "[]");
