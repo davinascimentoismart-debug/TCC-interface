@@ -173,6 +173,66 @@
 
         renderizar();
     </script>
+   const CHAVE = "entrada";
+        let entrada = JSON.parse(localStorage.getItem(CHAVE) || "[]");
+
+        function salvar() {
+            localStorage.setItem(CHAVE, JSON.stringify(entrada));
+        }
+
+        function renderizar() {
+            const div = document.getElementById("tabela");
+            if (entrada.length === 0) {
+                div.innerHTML = "<p>Nenhum registro salvo ainda.</p>";
+                return;
+            }
+            let html = "<table><thead><tr><th>#</th><th>Data</th><th>Horario</th></tr></thead><tbody>";
+            entrada.forEach((a, i) => {
+                html += `<tr><td>${i + 1}</td><td>${a.Data}</td><td>${a.Horario}</td></tr>`;
+            });
+            html += "</tbody></table>";
+            div.innerHTML = html;
+        }
+
+        document.getElementById("formCadastro").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const Data = document.getElementById("Data").value.trim();
+            const Horario = document.getElementById("Horario").value;
+            if (!Data || !Horario) return;
+            entrada.push({ Data , Horario });
+            salvar();
+            renderizar();
+            e.target.reset();
+        });
+
+        document.getElementById("btnVisualizar").addEventListener("click", renderizar);
+
+        document.getElementById("btnBaixar").addEventListener("click", () => {
+            const BOM = "\uFEFF"; // faz o Excel reconhecer UTF-8 (acentos)
+            const linhas = ["Data;Horario"];
+            alunos.forEach((a) => linhas.push(`${a.Data};${a.Horario}`));
+            const blob = new Blob([BOM + linhas.join("\n")], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "entrada.csv";
+            link.click();
+            URL.revokeObjectURL(link.href);
+        });
+
+        document.getElementById("btnLimpar").addEventListener("click", () => {
+            if (confirm("Apagar todos os registros?")) {
+                entrada = [];
+                salvar();
+                renderizar();
+            }
+        });
+
+        // Exibe a data atual automaticamente
+        document.getElementById("data").textContent =
+            new Date().toLocaleDateString("pt-BR");
+
+        renderizar();
+    </script>
 
 </body>
 </html>
