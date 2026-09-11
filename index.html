@@ -129,7 +129,7 @@
             let html = "<table><thead><tr><th>#</th><th>Data</th><th>Horario</th><th>acesso</th></tr></thead><tbody>";
             entrada.forEach((a, i) => {
                 html += `<tr><td>${i + 1}</td><td>${a.Data}</td><td>${a.Horario}</td></tr>;</td><td>${a.acesso}</td></tr>`
-            });
+            };
             html += "</tbody></table>";
             div.innerHTML = html;
         }
