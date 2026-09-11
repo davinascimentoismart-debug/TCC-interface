@@ -143,41 +143,49 @@
     div.innerHTML = html;
 }
 
-      document.getElementById("formCadastro").addEventListener("submit", (e) => {
+    document.getElementById("formCadastro").addEventListener("submit", (e) => {
     e.preventDefault();
 
     const Data = document.getElementById("Data").value.trim();
     const Horario = document.getElementById("Horario").value.trim();
     const acesso = document.getElementById("acesso").value.trim().toLowerCase();
 
-    // Validação da data: DD/MM/AA
-    const dataValida = /^\d{2}\/\d{2}\/\d{2}$/.test(Data);
+    console.log("Data:", Data);
+    console.log("Horario:", Horario);
+    console.log("Acesso:", acesso);
 
-    // Validação do horário: HH:MM
-    const horarioValido = /^(?:[01]\d|2[0-4]):[0-5]\d$/.test(Horario);
-
-    // Validação do acesso
-    const acessoValido = acesso === "liberado" || acesso === "negado";
-
-    if (!dataValida) {
-        alert("Data inválida! Use o formato DD/MM/AA.");
+    // Data DD/MM/AA
+    if (!/^\d{2}\/\d{2}\/\d{2}$/.test(Data)) {
+        alert("Data inválida! Use DD/MM/AA.");
         return;
     }
 
-    if (!horarioValido) {
-        alert("Horário inválido! Use o formato HH:MM, de 00:00 até 24:59.");
+    // Horário HH:MM
+    if (!/^(?:[01]\d|2[0-4]):[0-5]\d$/.test(Horario)) {
+        alert("Horário inválido! Use HH:MM.");
         return;
     }
 
-    if (!acessoValido) {
-        alert('Acesso inválido! Use somente "liberado" ou "negado".');
+    // Acesso
+    if (acesso !== "liberado" && acesso !== "negado") {
+        alert('Acesso deve ser "liberado" ou "negado".');
         return;
     }
 
     entrada.push({
-        Data,
-        Horario,
-        acesso
+        Data: Data,
+        Horario: Horario,
+        acesso: acesso
+    });
+
+    console.log("Entrada adicionada:", entrada);
+
+    salvar();
+    renderizar();
+
+    e.target.reset();
+});
+
     });
 
     salvar();
