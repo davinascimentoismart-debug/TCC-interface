@@ -151,7 +151,7 @@
 
         document.getElementById("btnBaixar").addEventListener("click", () => {
             const BOM = "\uFEFF"; // faz o Excel reconhecer UTF-8 (acentos)
-            const linhas = ["Data;Horario;acesso];
+            const linhas = ["Data;Horario;acesso"];
             alunos.forEach((a) => linhas.push(`${a.Data};${a.Horario}${a.acesso}`));
             const blob = new Blob([BOM + linhas.join("\n")], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
