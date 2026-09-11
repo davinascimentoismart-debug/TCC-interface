@@ -138,7 +138,7 @@
             e.preventDefault();
             const Data = document.getElementById("Data").value.trim();
             const Horario = document.getElementById("Horario").value;
-             const acesso = document.getElementById("acesso").value.trim();
+             const acesso = document.getElementById("acesso").value;
             if (!Data || !Horario || !acesso) return;
             entrada.push({ Data , Horario , acesso });
             salvar();
