@@ -101,6 +101,7 @@
         <form id="formCadastro">
             <input type="text" id="Data" placeholder="Data" required>
             <input type="text" id="Horario" placeholder="Horario" required>
+            <input type="text" id="entrada" placeholder="acesso" required>
             <button type="submit">Salvar</button>
         </form>
 
@@ -126,9 +127,9 @@
                 div.innerHTML = "<p>Nenhum registro salvo ainda.</p>";
                 return;
             }
-            let html = "<table><thead><tr><th>#</th><th>Data</th><th>Horario</th></tr></thead><tbody>";
+            let html = "<table><thead><tr><th>#</th><th>Data</th><th>Horario</th><th>acesso</th></tr></thead><tbody>";
             entrada.forEach((a, i) => {
-                html += `<tr><td>${i + 1}</td><td>${a.Data}</td><td>${a.Horario}</td></tr>`;
+                html += `<tr><td>${i + 1}</td><td>${a.Data}</td><td>${a.Horario}</td></tr>;</td><td>${a.acesso}</td></tr>`
             });
             html += "</tbody></table>";
             div.innerHTML = html;
@@ -138,8 +139,9 @@
             e.preventDefault();
             const Data = document.getElementById("Data").value.trim();
             const Horario = document.getElementById("Horario").value;
-            if (!Data || !Horario) return;
-            entrada.push({ Data , Horario });
+             const entrada = document.getElementById("acesso").value.trim();
+            if (!Data || !Horario || !acesso) return;
+            entrada.push({ Data , Horario , acesso });
             salvar();
             renderizar();
             e.target.reset();
